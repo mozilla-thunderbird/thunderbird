@@ -19,7 +19,7 @@
    - Portions created by the Initial Developer are Copyright (C) 2002
    - the Initial Developer. All Rights Reserved.
    -
-   - Contributor(s): Kai Engert <kaie@netscape.com>
+   - Contributor(s):
    -
    - Alternatively, the contents of this file may be used under the terms of
    - either the GNU General Public License Version 2 or later (the "GPL"), or
@@ -36,69 +36,72 @@
    - ***** END LICENSE BLOCK ***** -->
 
 <?xml-sheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://messenger/skin/smime/msgReadSecurityInfo.css" type="text/css"?> 
+<?xml-stylesheet href="chrome://messenger/skin/smime/msgCompSecurityInfo.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 
-<!DOCTYPE window SYSTEM "chrome://messenger-smime/locale/msgReadSecurityInfo.dtd">
+<!DOCTYPE window SYSTEM "chrome://messenger-smime/locale/msgCompSecurityInfo.dtd">
 
-<window id="msgReadSecurityInfo" title="&status.label;"
+<window id="msgCompSecurityInfo" title="&title.label;"
+  class="dialog"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"      
+  style="width: 50em;"
   onload="onLoad();">
 
 <script type="application/x-javascript" src="chrome://help/content/contextHelp.js"/>
-<script type="application/x-javascript" src="chrome://messenger-smime/content/msgReadSecurityInfo.js"/>
+<script type="application/x-javascript" src="chrome://messenger-smime/content/msgCompSecurityInfo.js"/>
 
-<stringbundle id="bundle_smime_read_info" src="chrome://messenger-smime/locale/msgSecurityInfo.properties"/> 
+<stringbundle id="bundle_smime_comp_info" src="chrome://messenger-smime/locale/msgCompSecurityInfo.properties"/> 
 
 <vbox id="outer_vbox">
-  <vbox flex="1">
-    <label id="signatureLabel"/>
-    <label id="signatureHeader" collapsed="true"/>
-    <description id="signatureExplanation"/>
-    <vbox id="signatureCert" collapsed="true">
-      <hbox>
-        <label id="signedByLabel">&signer.name;</label>
-        <description id="signedBy"/>
-      </hbox>
-      <hbox>
-        <label id="signerEmailLabel">&email.address;</label>
-        <description id="signerEmail"/>
-      </hbox>
-      <hbox>
-        <label id="sigCertIssuedByLabel">&issuer.name;</label>
-        <description id="sigCertIssuedBy"/>
-      </hbox>
-      <hbox>
-        <button id="signatureCertView" label="&signatureCert.label;"
-                oncommand="viewSignatureCert()"/>
-      </hbox>
-    </vbox>
 
-    <separator/>
+  <description>&subject.plaintextWarning;</description>
+  <separator class="thin"/>
+  <description>&status.heading;</description>
+  <grid>
+    <columns>
+      <column/>
+      <column/>
+    </columns>
+    <rows>
+      <row>
+        <label value="&status.signed;"/>
+        <label id="signed"/>
+      </row>
+      <row>
+        <label value="&status.encrypted;"/>
+        <label id="encrypted"/>
+      </row>
+    </rows>
+  </grid>
 
-    <label id="encryptionLabel"/>
-    <label id="encryptionHeader" collapsed="true"/>
-    <description id="encryptionExplanation"/>
-    <vbox id="encryptionCert" collapsed="true">
-      <hbox>
-        <label id="encryptedForLabel">&recipient.name;</label>
-        <description id="encryptedFor"/>
-      </hbox>
-      <hbox>
-        <label id="recipientEmailLabel">&email.address;</label>
-        <description id="recipientEmail"/>
-      </hbox>
-      <hbox>
-        <label id="encCertIssuedByLabel">&issuer.name;</label>
-        <description id="encCertIssuedBy"/>
-      </hbox>
-      <hbox>
-        <button id="encryptionCertView" label="&encryptionCert.label;"
-                oncommand="viewEncryptionCert()"/>
-      </hbox>
-    </vbox>
-  </vbox>
+  <separator class="thin"/>
+  <label value="&status.certificates;"/>
+
+  <listbox id="infolist" style="height: 10em;" flex="1"
+        onselect="onSelectionChange(event);">
+    <listcols>
+      <listcol flex="3" width="0"/>
+      <splitter class="tree-splitter"/>
+      <listcol flex="1" width="0"/>
+      <splitter class="tree-splitter"/>
+      <listcol flex="2" width="0"/>
+      <splitter class="tree-splitter"/>
+      <listcol flex="2" width="0"/>
+    </listcols>
+    <listhead>
+      <listheader label="&tree.recipient;"/>
+      <listheader label="&tree.status;"/>
+      <listheader label="&tree.issuedDate;"/>
+      <listheader label="&tree.expiresDate;"/>
+    </listhead>
+  </listbox>
+  <hbox pack="start">
+    <button id="viewCertButton" disabled="true"
+            label="&view.label;"
+            oncommand="viewSelectedCert();"/>
+  </hbox>
+
   <separator class="thin"/>
   <keyset id="dialogKeys"/>
   <hbox id="okCancelHelpButtonsRight"/>
