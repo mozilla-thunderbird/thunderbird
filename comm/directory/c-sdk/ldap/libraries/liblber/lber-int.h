@@ -196,8 +196,6 @@ void *nslberi_malloc( size_t size );
 void *nslberi_calloc( size_t nelem, size_t elsize );
 void *nslberi_realloc( void *ptr, size_t size );
 void nslberi_free( void *ptr );
-int nslberi_ber_realloc( BerElement *ber, unsigned long len );
-
 
 
 /* blame: dboreham 
@@ -226,11 +224,6 @@ int nslberi_ber_realloc( BerElement *ber, unsigned long len );
 #define NSLBERI_CALLOC( nelem, elsize )	nslberi_calloc( nelem, elsize )
 #define NSLBERI_REALLOC( ptr, size )	nslberi_realloc( ptr, size )
 #define NSLBERI_FREE( ptr )		nslberi_free( ptr )
-
-/* allow the library to access the debug variable */
-
-extern int lber_debug;
-
 
 #ifdef __cplusplus
 }

@@ -181,8 +181,8 @@ ber_read( BerElement *ber, char *buf, unsigned long len )
  * enlarge the ber buffer.
  * return 0 on success, -1 on error.
  */
-int
-nslberi_ber_realloc( BerElement *ber, unsigned long len )
+static int
+ber_realloc( BerElement *ber, unsigned long len )
 {
 	unsigned long	need, have, total;
 	size_t		have_bytes;
@@ -253,7 +253,7 @@ ber_write( BerElement *ber, char *buf, unsigned long len, int nosos )
 {
 	if ( nosos || ber->ber_sos == NULL ) {
 		if ( ber->ber_ptr + len > ber->ber_end ) {
-			if ( nslberi_ber_realloc( ber, len ) != 0 )
+			if ( ber_realloc( ber, len ) != 0 )
 				return( -1 );
 		}
 		SAFEMEMCPY( ber->ber_ptr, buf, (size_t)len );
@@ -261,7 +261,7 @@ ber_write( BerElement *ber, char *buf, unsigned long len, int nosos )
 		return( len );
 	} else {
 		if ( ber->ber_sos->sos_ptr + len > ber->ber_end ) {
-			if ( nslberi_ber_realloc( ber, len ) != 0 )
+			if ( ber_realloc( ber, len ) != 0 )
 				return( -1 );
 		}
 		SAFEMEMCPY( ber->ber_sos->sos_ptr, buf, (size_t)len );
@@ -665,36 +665,24 @@ int
 LDAP_CALL
 ber_set_option( struct berelement *ber, int option, void *value )
 {
-  
-  /*
-   * memory allocation callbacks are global, so it is OK to pass
-   * NULL for ber.  Handle this as a special case.
-   */
-  if ( option == LBER_OPT_MEMALLOC_FN_PTRS ) {
-    /* struct copy */
-    nslberi_memalloc_fns = *((struct lber_memalloc_fns *)value);
-    return( 0 );
-  }
-  
-  /*
-   * lber_debug is global, so it is OK to pass
-   * NULL for ber.  Handle this as a special case.
-   */
-  if ( option == LBER_OPT_DEBUG_LEVEL ) {
-#ifdef LDAP_DEBUG
-    lber_debug = *(int *)value;
-#endif
-    return( 0 );
-  }
-  
-  /*
-   * all the rest require a non-NULL ber
-   */
-  if ( !NSLBERI_VALID_BERELEMENT_POINTER( ber )) {
-    return( -1 );
-  }
-  
-  switch ( option ) {
+	/*
+	 * memory allocation callbacks are global, so it is OK to pass
+	 * NULL for ber.  Handle this as a special case.
+	 */
+	if ( option == LBER_OPT_MEMALLOC_FN_PTRS ) {
+		/* struct copy */
+		nslberi_memalloc_fns = *((struct lber_memalloc_fns *)value);
+		return( 0 );
+	}
+
+	/*
+	 * all the rest require a non-NULL ber
+	 */
+	if ( !NSLBERI_VALID_BERELEMENT_POINTER( ber )) {
+		return( -1 );
+	}
+
+	switch ( option ) {
 	case LBER_OPT_USE_DER:
 	case LBER_OPT_TRANSLATE_STRINGS:
 		if ( value != NULL ) {
@@ -714,9 +702,9 @@ ber_set_option( struct berelement *ber, int option, void *value )
 		break;
 	default:
 		return( -1 );
-  }
-  
-  return( 0 );
+	}
+
+	return( 0 );
 }
 
 /*
@@ -735,17 +723,7 @@ ber_get_option( struct berelement *ber, int option, void *value )
 		*((struct lber_memalloc_fns *)value) = nslberi_memalloc_fns;
 		return( 0 );
 	}
-	
-	/*
-	 * lber_debug is global, so it is OK to pass
-	 * NULL for ber.  Handle this as a special case.
-	 */
-	if ( option == LBER_OPT_DEBUG_LEVEL ) {
-#ifdef LDAP_DEBUG
-	 *(int *)value =  lber_debug;
-#endif
-	  return( 0 );
-	}
+
 	/*
 	 * all the rest require a non-NULL ber
 	 */
@@ -1054,7 +1032,7 @@ ber_get_next_buffer( void *buffer, size_t buffer_size, unsigned long *len,
 #endif /* DOS && !_WIN32 */
 
 		if ( ber->ber_buf + *len > ber->ber_end ) {
-			if ( nslberi_ber_realloc( ber, *len ) != 0 )
+			if ( ber_realloc( ber, *len ) != 0 )
 				goto premature_exit;
 		}
 		ber->ber_ptr = ber->ber_buf;

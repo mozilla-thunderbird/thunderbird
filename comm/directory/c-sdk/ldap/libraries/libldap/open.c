@@ -291,7 +291,7 @@ nsldapi_open_ldap_connection( LDAP *ld, Sockbuf *sb, char *host, int defport,
 #endif /* KERBEROS */
 	}
 
-	return( rc );
+	return( 0 );
 }
 
 

@@ -1,8 +1,8 @@
-DEPTH	= ../../../..
+NS_DEPTH	= ../../..
 
 CSRCS	= dirver.c
 
-include $(DEPTH)/config/rules.mk
+include $(NS_DEPTH)/config/rules.mk
 
 TARGETS	= $(OBJDIR)/dirver$(BIN_SUFFIX)
 

@@ -1,5 +1,5 @@
-DEPTH		= ../../../..
-
+DEPTH		= ../../..
+NS_DEPTH	= ../../..
 
 CHMOD		= chmod
 RM		= rm -f

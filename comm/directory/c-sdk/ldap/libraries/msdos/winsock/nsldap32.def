@@ -2,7 +2,7 @@ LIBRARY         NSLDAP32V30
 DESCRIPTION     'Lightweight Directory Access Protocol Client API for 32-bit Windows'
 CODE            PRELOAD MOVEABLE DISCARDABLE
 DATA            PRELOAD MOVEABLE SINGLE
-VERSION		3.1
+VERSION		3.1b1
 HEAPSIZE        4096
 
 EXPORTS
@@ -261,7 +261,6 @@ EXPORTS
 	ldap_count_messages		@524
 	ldap_create_virtuallist_control		@525
 	ldap_parse_virtuallist_control		@526
-	ldap_create_proxyauth_control		@527
 	ldap_memcache_init		@1000
 	ldap_memcache_set		@1001
 	ldap_memcache_get		@1002

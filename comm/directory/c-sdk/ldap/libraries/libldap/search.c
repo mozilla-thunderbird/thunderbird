@@ -539,9 +539,6 @@ put_filter_list( BerElement *ber, char *str )
  *	1.2.3.4;binary;dynamic
  *	mail;dynamic
  *	cn:dn:1.2.3.4
- *
- * For compatibility with older servers, we also allow underscores in
- * attribute types, even through they are not allowed by the LDAPv3 RFCs.
  */
 static int
 is_valid_attr( char *a )
@@ -555,7 +552,6 @@ is_valid_attr( char *a )
 		  case '.':
 		  case ';':
 		  case ':':
-		  case '_':
 		    break; /* valid */
 		  default:
 		    return( 0 );
