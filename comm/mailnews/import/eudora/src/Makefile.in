@@ -1,56 +1,69 @@
 #
-# The contents of this file are subject to the Netscape Public
+# The contents of this file are subject to the Mozilla Public
 # License Version 1.1 (the "License"); you may not use this file
 # except in compliance with the License. You may obtain a copy of
-# the License at http://www.mozilla.org/NPL/
-#
+# the License at http://www.mozilla.org/MPL/
+# 
 # Software distributed under the License is distributed on an "AS
 # IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
 # implied. See the License for the specific language governing
 # rights and limitations under the License.
-#
-# The Original Code is mozilla.org code.
-#
+# 
+# The Original Code is mozilla.org code
+# 
 # The Initial Developer of the Original Code is Netscape
-# Communications Corporation.  Portions created by Netscape are
-# Copyright (C) 1998 Netscape Communications Corporation. All
+# Communications Corporation.  Portions created by Netscape are 
+# Copyright (C) 2001 Netscape Communications Corporation.  All
 # Rights Reserved.
-#
-# Contributor(s): 
+# 
+# Contributor(s):
 #
 
-DEPTH		= ../../..
+DEPTH		= ../../../..
 topsrcdir	= @top_srcdir@
 srcdir		= @srcdir@
 VPATH		= @srcdir@
 
 include $(DEPTH)/config/autoconf.mk
 
-MODULE		= msgcompose
-LIBRARY_NAME	= msgcompose
-META_COMPONENT = mail
-EXPORT_LIBRARY = 1
-SHORT_LIBNAME	= msgcompo
+MODULE		= impEudra
+LIBRARY_NAME	= impEudra
+EXPORT_LIBRARY	= 1
 IS_COMPONENT	= 1
-MODULE_NAME	= nsMsgComposeModule
+META_COMPONENT	= mail
+MODULE_NAME	= nsEudoraImportModule
+
 REQUIRES	= xpcom \
 		  string \
-		  msgbase \
-		  msgbaseutil \
-		  editor \
+		  import \
+		  intl \
 		  necko \
+		  addrbook \
+		  mork \
+		  msgcompose \
+		  msgbase \
+		  editor \
 		  dom \
 		  uriloader \
-		  mime \
-		  addrbook \
-		  rdf \
-		  intl \
 		  mailnews \
-		  widget \
 		  msgdb \
-		  appshell \
-		  nkcache \
+		  msgbaseutil \
+		  msglocal \
+		  mimetype \
+		  unicharutil \
+		  pref \
 		  $(NULL)
+
+CPPSRCS		= \
+		nsEudoraFactory.cpp \
+		nsEudoraStringBundle.cpp \
+		nsEudoraImport.cpp \
+		nsEudoraMailbox.cpp \
+		nsEudoraWin32.cpp \
+		nsEudoraSettings.cpp \
+		nsEudoraCompose.cpp \
+		nsEudoraAddress.cpp \
+		$(NULL)
 
 ifeq ($(USE_SHORT_LIBNAME),1)
 EXTRA_DSO_LIBS = msgbsutl
@@ -58,17 +71,9 @@ else
 EXTRA_DSO_LIBS = msgbaseutil
 endif
 
-CPPSRCS		= nsMsgCompFactory.cpp
-EXPORTS		= nsMsgCompCID.h
-
-SHARED_LIBRARY_LIBS = \
-		$(DIST)/lib/$(LIB_PREFIX)msgcompose_s.$(LIB_SUFFIX) \
-		$(NULL)
-
 EXTRA_DSO_LDOPTS = \
 		$(LIBS_DIR) \
 		$(EXTRA_DSO_LIBS) \
-		$(MOZ_JS_LIBS) \
 		$(MOZ_UNICHARUTIL_LIBS) \
 		$(MOZ_COMPONENT_LIBS) \
 		$(NULL)
