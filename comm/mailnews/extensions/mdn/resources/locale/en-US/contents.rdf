@@ -11,13 +11,13 @@
   <RDF:Description about="urn:mozilla:locale:en-US">
     <chrome:packages>
       <RDF:Seq about="urn:mozilla:locale:en-US:packages">
-        <RDF:li resource="urn:mozilla:locale:en-US:messenger-mapi"/>
+        <RDF:li resource="urn:mozilla:locale:en-US:messenger-mdn"/>
       </RDF:Seq>
     </chrome:packages>
   </RDF:Description>
 
   <!-- Version Information.  State that we work only with major version of this
        package. -->
-  <RDF:Description about="urn:mozilla:locale:en-US:messenger-mapi"
-	chrome:localeVersion="@MOZILLA_LOCALE_VERSION@"/>
+  <RDF:Description about="urn:mozilla:locale:en-US:messenger-mdn"
+#expand 	chrome:localeVersion="__MOZILLA_LOCALE_VERSION__"/>
 </RDF:RDF>

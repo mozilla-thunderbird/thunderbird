@@ -2,16 +2,18 @@
 <RDF:RDF xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:chrome="http://www.mozilla.org/rdf/chrome#">
 
-  <!-- list all the packages being supplied by this jar -->
+  <!-- list all the packages being supplied -->
   <RDF:Seq about="urn:mozilla:package:root">
-    <RDF:li resource="urn:mozilla:package:messenger-region"/>
+    <RDF:li resource="urn:mozilla:package:mozldap"/>
   </RDF:Seq>
 
   <!-- package information -->
-  <RDF:Description about="urn:mozilla:package:messenger-region"
+  <RDF:Description about="urn:mozilla:package:mozldap"
+        chrome:displayName="MozLDAP"
         chrome:author="mozilla.org"
-        chrome:name="messenger-region"
-	chrome:localeVersion="@MOZILLA_REGION_VERSION@">
+        chrome:name="mozldap"
+#expand  	chrome:localeVersion="__MOZILLA_LOCALE_VERSION__">
   </RDF:Description>
 
 </RDF:RDF>
+
