@@ -1,0 +1,319 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://messenger/skin/layout.css");
+
+/* Default variables */
+
+:host,
+:root {
+  --account-color: var(--selected-item-color);
+  --transition-duration: 200ms;
+  --transition-timing: ease;
+  --arrowpanel-background: var(--layout-background-1);
+  --arrowpanel-color: var(--layout-color-1);
+  --arrowpanel-border-color: var(--layout-border-1);
+  --lwt-additional-images: none;
+  --lwt-background-alignment: right top;
+  --lwt-background-tiling: no-repeat;
+  --toolbar-bgcolor: var(--layout-background-1);
+  --toolbar-color: var(--layout-color-1);
+  --panelui-subview-transition-duration: 150ms;
+  --autocomplete-popup-highlight-background: var(--selected-item-color);
+  --autocomplete-popup-highlight-color: var(--selected-item-text-color);
+  --button-background-color: var(--layout-background-3);
+  --button-hover-text-color: inherit;
+  --button-hover-background-color: light-dark(var(--layout-background-2), var(--layout-background-4));
+  --button-active-background-color: light-dark(var(--layout-background-4), var(--layout-background-2));
+  --button-border-color: light-dark(var(--layout-border-1), var(--layout-border-2));
+  --button-border-radius: 3px;
+  --button-border-size: 1px;
+  --button-text-color: var(--layout-color-1);
+  --button-margin: 6px;
+  --button-padding: 6px;
+
+  --button-primary-background-color: var(--selected-item-color);
+  --button-primary-hover-background-color: color-mix(in srgb, var(--selected-item-color) 80%, black);
+  --button-primary-active-background-color: color-mix(in srgb, var(--selected-item-color) 70%, black);
+  --button-primary-text-color: var(--selected-item-text-color);
+  --button-primary-border-color: color-mix(in srgb, var(--selected-item-color) 85%, black);
+
+  --button-destructive-background-color: var(--color-red-60);
+  --button-destructive-hover-background-color: color-mix(in srgb, var(--color-red-50) 50%, var(--color-red-60));
+  --button-destructive-active-background-color: var(--color-red-70);
+  --button-destructive-text-color: var(--color-white);
+  --button-destructive-border-color: light-dark(var(--color-red-80), var(--color-red-50));
+  --button-link-text-color: light-dark(var(--color-blue-60), var(--color-blue-40));
+  --button-link-active-text-color: light-dark(var(--color-blue-70), var(--color-blue-50));
+  --button-pressed-shadow: light-dark(
+    inset 0 1px 3px color-mix(in srgb, var(--color-gray-90) 30%, transparent),
+    inset 0 1px 3px color-mix(in srgb, var(--color-black) 50%, transparent)
+  );
+  --button-pressed-indicator-shadow: light-dark(0 1px 0 rgba(255, 255, 255, 0.5), 0 1px 0 rgba(0, 0, 0, 0.25));
+  --button-pressed-indicator-padding: 6px;
+  --chrome-content-separator-color: light-dark(var(--color-gray-30), var(--color-gray-90));
+  --focus-outline-color: var(--toolbar-field-focus-border-color);
+  --focus-outline-offset: 2px;
+  --focus-outline: 2px solid var(--focus-outline-color);
+  --input-border-color: color-mix(in srgb, currentColor 41%, transparent);
+  --new-folder-color: light-dark(var(--color-blue-60), var(--color-blue-40));
+  --lwt-header-image: none;
+  --search-bar-color: inherit;
+  --search-bar-border-color: var(--color-gray-40);
+  --search-bar-background: var(--layout-background-0);
+  --search-bar-focus-background: var(--layout-background-0);
+  --search-field-placeholder: color-mix(in srgb, currentColor 50%, transparent);
+  --search-focus-outline-color: var(--focus-outline-color);
+  --search-outline-offset: -1px;
+  --selected-item-color: var(--sidebar-highlight-background-color, AccentColor);
+  --selected-item-text-color: var(--sidebar-highlight-text-color, AccentColorText);
+  --sidebar-header-gap: 9px;
+  --sidebar-header-spacing: 9px;
+  --splitter-color: var(--sidebar-border-color, var(--layout-border-0));
+  --sidebar-border-color: var(--layout-border-0);
+
+  --tab-min-height: 33px;
+  --lwt-tabs-border-color: var(--sidebar-border-color);
+  --tabs-tabbar-border-size: 1px;
+  --toolbar-button-hover-background-color: color-mix(in srgb, currentColor 10%, transparent);
+  --toolbar-button-hover-border-color: color-mix(in srgb, currentColor 30%, transparent);
+  --toolbar-button-hover-checked-color: color-mix(in srgb, currentColor 20%, transparent);
+  --toolbar-button-active-background-color: color-mix(in srgb, currentColor 20%, transparent);
+  --toolbar-button-active-border-color: color-mix(in srgb, currentColor 40%, transparent);
+  --toolbarbutton-icon-fill-opacity: 0.85;
+  --toolbarbutton-hover-background: light-dark(
+    var(--lwt-toolbarbutton-hover-background, rgba(0, 0, 0, 0.05)),
+    var(--lwt-toolbarbutton-hover-background, rgba(255, 255, 255, 0.25))
+  );
+  --toolbarbutton-hover-bordercolor: light-dark(
+    var(--lwt-toolbarbutton-hover-background, rgba(0, 0, 0, 0.25)),
+    var(--lwt-toolbarbutton-hover-background, rgba(255, 255, 255, 0.5))
+  );
+  --toolbarbutton-header-bordercolor: light-dark(
+    var(--lwt-toolbarbutton-hover-background, rgba(0, 0, 0, 0.25)),
+    var(--lwt-toolbarbutton-hover-background, rgba(255, 255, 255, 0.25))
+  );
+  --toolbarbutton-hover-boxshadow: none;
+  --toolbarbutton-active-background: light-dark(
+    var(--lwt-toolbarbutton-active-background, rgba(0, 0, 0, 0.1)),
+    var(--lwt-toolbarbutton-active-background, rgba(255, 255, 255, 0.4))
+  );
+  --toolbarbutton-active-bordercolor: light-dark(
+    var(--lwt-toolbarbutton-active-background, rgba(0, 0, 0, 0.3)),
+    var(--lwt-toolbarbutton-active-background, rgba(255, 255, 255, 0.7))
+  );
+  --toolbarbutton-default-active-boxshadow: rgba(0, 0, 0, 0.1) inset, 0 0 1px rgba(0, 0, 0, 0.3);
+  --toolbarbutton-active-boxshadow: light-dark(0 1px 1px var(--lwt-toolbarbutton-active-background, var(--toolbarbutton-default-active-boxshadow)) inset, none);
+  --toolbarbutton-checked-background: light-dark(var(--lwt-toolbarbutton-hover-background, rgba(200, 200, 200, 0.5)), rgba(0, 0, 0, 0.25));
+  --toolbarbutton-icon-fill-attention: var(--lwt-toolbarbutton-icon-fill-attention, var(--selected-item-color));
+  --toolbarseparator-color: color-mix(in srgb, currentColor 20%, transparent);
+  --toolbar-field-color: var(--layout-color-1);
+  --toolbar-field-background-color: var(--layout-background-1);
+  --toolbar-field-border-color: var(--layout-border-1);
+  --toolbar-field-focus-border-color: var(--selected-item-color);
+  --toolbar-field-highlight: var(--selected-item-color);
+  --toolbar-field-highlight-color: var(--selected-item-text-color);
+  --item-focus-selected-border-color: light-dark(#0060df, #bebebf);
+  --default: light-dark(#4f526d, #dcdcdc);
+  --primary: var(--color-primary-default);
+  --select-focus-text-color: var(--selected-item-text-color);
+  --select-focus-background-color: var(--selected-item-color);
+  /* Wrapper for toolkit variables */
+  --color-accent-primary: var(--button-primary-background-color);
+  --color-accent-primary-hover: var(--button-primary-hover-background-color);
+  --color-accent-primary-active: var(--button-primary-active-background-color);
+  --button-text-color-primary: var(--button-primary-text-color);
+
+  --tabline-color: var(--selected-item-color);
+
+  --drop-indicator-z-index: 3;
+
+  /* LW-themes enabled */
+
+  &[lwtheme] {
+    color: var(--lwt-text-color);
+    --autocomplete-popup-url-color: light-dark(hsl(210, 77%, 47%), #0a84ff);
+    --button-background: #d2d2d3;
+    --button-background-hover: #c2c2c3;
+    --button-background-active: #b2b2b3;
+    --search-bar-color: var(--toolbar-field-focus-color);
+    --search-bar-background: var(--toolbar-field-background-color);
+    --search-bar-border-color: var(--toolbar-field-border-color);
+    --search-bar-focus-background: var(--toolbar-field-focus-background-color);
+    --toolbar-color: var(--lwt-text-color, inherit);
+    --toolbar-bgcolor: rgba(255, 255, 255, 0.4);
+    --toolbar-field-border-color: hsla(240, 5%, 5%, 0.25);
+    --toolbarbutton-icon-fill-opacity: 1;
+    --tabline-color: var(--lwt-tab-line-color, currentColor);
+
+    &:not([lwt-tree]) {
+      --search-bar-border-color: color-mix(in srgb, currentColor 50%, transparent);
+    }
+  }
+
+  &[lwt-tree] {
+    --select-focus-text-color: var(--sidebar-highlight-text-color, var(--sidebar-text-color));
+    --new-focused-folder-color: var(--sidebar-highlight-text-color, var(--sidebar-text-color));
+    --row-grouped-header-bg-color: hsla(0, 0%, 50%, 0.15);
+    --row-grouped-header-bg-color-selected: light-dark(
+      var(--sidebar-highlight-background-color, hsla(0, 0%, 80%, 0.6)),
+      var(--sidebar-highlight-background-color, rgba(249, 249, 250, 0.3))
+    );
+  }
+
+  @media (prefers-color-scheme: dark) {
+    --lwt-accent-color: rgb(24, 24, 26);
+  }
+
+  /* Special High contrast setting */
+
+  @media (prefers-contrast) {
+    --button-text-color: ButtonText;
+    --button-background-color: ButtonFace;
+    --button-border-color: ButtonText;
+    --button-hover-text-color: SelectedItemText;
+    --button-hover-background-color: SelectedItem;
+    --button-active-background-color: SelectedItem;
+    --button-primary-background-color: SelectedItem;
+    --button-primary-hover-background-color: SelectedItem;
+    --button-primary-active-background-color: SelectedItem;
+    --button-primary-text-color: SelectedItemText;
+    --button-primary-border-color: SelectedItem;
+    --button-primary-hover-border-color: -moz-DialogText;
+    --button-link-text-color: LinkText;
+    --button-link-active-text-color: ActiveText;
+    --button-pressed-shadow: none;
+    --selected-item-color: SelectedItem;
+    --selected-item-text-color: SelectedItemText;
+    --toolbar-button-hover-background-color: SelectedItem;
+    --toolbar-button-hover-border-color: SelectedItem;
+    --toolbar-button-hover-checked-color: SelectedItem;
+    --toolbar-button-active-background-color: SelectedItem;
+    --toolbar-button-active-border-color: SelectedItemText;
+    --toolbar-field-background-color: Field;
+    --toolbar-field-color: FieldText;
+    --toolbar-field-border-color: ThreeDShadow;
+
+    --tabline-color: SelectedItem;
+  }
+
+  @media not (prefers-contrast) {
+    &:not([lwtheme]) {
+      --buttons-secondary-bgcolor: rgb(240, 240, 244);
+      --buttons-secondary-hover-bgcolor: rgb(224, 224, 230);
+      --buttons-secondary-active-bgcolor: rgb(207, 207, 216);
+      --buttons-secondary-color: rgb(21, 20, 26);
+      --arrowpanel-dimmed: color-mix(in srgb, currentColor 12%, transparent);
+      --arrowpanel-dimmed-further: color-mix(in srgb, currentColor 20%, transparent);
+      --arrowpanel-dimmed-even-further: color-mix(in srgb, currentColor 27%, transparent);
+      --error-text-color: #c50042;
+      --link-color: LinkText;
+      --link-color-hover: LinkText;
+      --link-color-active: ActiveText;
+      --link-color-visited: var(--link-color);
+    }
+  }
+}
+
+/* DPI variations */
+
+@media (min-resolution: 1.5dppx) {
+  :root {
+    --tabs-tabbar-border-size: 0.5px;
+  }
+}
+
+@media (min-resolution: 3dppx) {
+  :root {
+    --tabs-tabbar-border-size: 0.33px;
+  }
+}
+
+/* UI Density customization */
+
+:root {
+  --hub-body-elements-column-gap: 39px;
+  --hub-header-body-gap: 30px;
+  --hub-notification-bar-margin-block-start: 15px;
+  --hub-header-margin-block-start: 36px;
+  --hub-subheader-margin-block-start: 9px;
+  --hub-notification-text-margin-block-start: 9px;
+  --hub-footer-margin-block: 18px;
+  --hub-config-option-padding-inline: 9px;
+  --hub-config-option-padding-block: 6px;
+  --hub-sync-list-title-gap: 12px;
+  --hub-sync-list-title-padding: 12px;
+  --hub-sync-list-details-gap: 2px;
+  --hub-sync-list-option-gap: 5px;
+  --hub-sync-list-option-padding: 6px 12px;
+  --hub-sync-list-icon-size: 32px;
+  --hub-sync-list-calendar-icon: url("chrome://messenger/skin/icons/new/normal/calendar-colored.svg");
+  --hub-sync-list-addressbook-icon: url("chrome://messenger/skin/icons/new/normal/address-book-colored.svg");
+  --hub-success-illustration: url("chrome://messenger/skin/illustrations/accounthub-success.svg");
+  --hub-success-illustration-dark: url("chrome://messenger/skin/illustrations/accounthub-success-dark.svg");
+  --hub-success-hub-illustration-width: 243px;
+  --hub-success-hub-illustration-height: 167px;
+  --hub-success-link-title-margin-block-start: 12px;
+  --hub-success-link-container-margin-block-start: 9px;
+  --hub-address-book-option-select-gap: 18px;
+  --hub-address-book-option-padding: 15px 21px;
+  --hub-address-book-remote-form-gap: 3px;
+}
+
+:root[uidensity="compact"] {
+  --tab-min-height: 30px;
+  --button-margin: 3px;
+  --button-padding: 3px;
+  --button-pressed-indicator-padding: 9px;
+  --sidebar-header-gap: 6px;
+  --sidebar-header-spacing: 4px 6px 3px;
+  --hub-body-elements-column-gap: 36px;
+  --hub-header-body-gap: 21px;
+  --hub-notification-bar-margin-block-start: 12px;
+  --hub-header-margin-block-start: 18px;
+  --hub-subheader-margin-block-start: 6px;
+  --hub-notification-text-margin-block-start: 3px;
+  --hub-footer-margin-block: 6px;
+  --hub-config-option-padding-inline: 6px;
+  --hub-config-option-padding-block: 3px;
+  --hub-sync-list-title-gap: 9px;
+  --hub-sync-list-title-padding: 6px 9px;
+  --hub-sync-list-details-gap: 0;
+  --hub-sync-list-option-gap: 3px;
+  --hub-sync-list-option-padding: 3px 9px;
+  --hub-sync-list-icon-size: 24px;
+  --hub-sync-list-calendar-icon: url("chrome://messenger/skin/icons/new/compact/calendar-colored.svg");
+  --hub-sync-list-addressbook-icon: url("chrome://messenger/skin/icons/new/compact/address-book-colored.svg");
+  --hub-success-illustration: url("chrome://messenger/skin/illustrations/accounthub-success-compact.svg");
+  --hub-success-illustration-dark: url("chrome://messenger/skin/illustrations/accounthub-success-dark-compact.svg");
+  --hub-success-hub-illustration-width: 197px;
+  --hub-success-hub-illustration-height: 130px;
+  --hub-success-link-title-margin-block-start: 6px;
+  --hub-success-link-container-margin-block-start: 6px;
+  --hub-address-book-option-select-gap: 12px;
+  --hub-address-book-option-padding: 9px 15px;
+  --hub-address-book-remote-form-gap: 3px;
+}
+
+:root[uidensity="touch"] {
+  --tab-min-height: 39px;
+  --button-pressed-indicator-padding: 3px;
+  --sidebar-header-gap: 12px;
+  --hub-body-elements-column-gap: 42px;
+  --hub-header-body-gap: 39px;
+  --hub-notification-bar-margin-block-start: 18px;
+  --hub-header-margin-block-start: 39px;
+  --hub-subheader-margin-block-start: 12px;
+  --hub-notification-text-margin-block-start: 12px;
+  --hub-footer-margin-block: 21px;
+  --hub-sync-list-title-gap: 15px;
+  --hub-sync-list-details-gap: 3px;
+  --hub-sync-list-option-gap: 6px;
+  --hub-sync-list-option-padding: 9px 15px;
+  --hub-success-link-title-margin-block-start: 15px;
+  --hub-success-link-container-margin-block-start: 12px;
+  --hub-address-book-option-select-gap: 21px;
+  --hub-address-book-option-padding: 18px 24px;
+  --hub-address-book-remote-form-gap: 6px;
+}

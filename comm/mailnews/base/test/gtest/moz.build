@@ -1,0 +1,21 @@
+# vim: set filetype=python:
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+FINAL_LIBRARY = "xul-gtest"
+
+UNIFIED_SOURCES += [
+    "Helpers.cpp",
+    "MboxTestData.cpp",
+    "TestHashIfNecessary.cpp",
+    "TestHeaderReader.cpp",
+    "TestLineReader.cpp",
+    "TestMsgMboxRead.cpp",
+    "TestMsgMboxWrite.cpp",
+    "TestMsgUtils.cpp",
+]
+
+# LOCAL_INCLUDES += [
+#    "../../src",
+# ]

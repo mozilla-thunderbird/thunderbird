@@ -1,0 +1,167 @@
+# vim: set filetype=python:
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+EXPORTS += [
+    "CopyMessageStreamListener.h",
+    "FolderCompactor.h",
+    "FolderLookupService.h",
+    "HeaderReader.h",
+    "LineReader.h",
+    "MboxMsgInputStream.h",
+    "MboxMsgOutputStream.h",
+    "MsgOperationListener.h",
+    "MsgPasswordAuthModule.h",
+    "nsImapMoveCoalescer.h",
+    "nsMailAuthModule.h",
+    "nsMailChannel.h",
+    "nsMailDirServiceDefs.h",
+    "nsMsgCompressIStream.h",
+    "nsMsgCompressOStream.h",
+    "nsMsgDBFolder.h",
+    "nsMsgEnumerator.h",
+    "nsMsgI18N.h",
+    "nsMsgIdentity.h",
+    "nsMsgIncomingServer.h",
+    "nsMsgKeySet.h",
+    "nsMsgLineBuffer.h",
+    "nsMsgMailNewsUrl.h",
+    "nsMsgProtocol.h",
+    "nsMsgReadStateTxn.h",
+    "nsMsgTxn.h",
+    "nsMsgUtils.h",
+    "nsNewMailnewsURI.h",
+    "nsQuarantinedOutputStream.h",
+    "UrlListener.h",
+]
+
+SOURCES += [
+    "CopyMessageStreamListener.cpp",
+    "FolderCompactor.cpp",
+    "FolderLookupService.cpp",
+    "MailNewsDLF.cpp",
+    "MailnewsLoadContextInfo.cpp",
+    "MboxMsgInputStream.cpp",
+    "MboxMsgOutputStream.cpp",
+    "MsgOperationListener.cpp",
+    "MsgPasswordAuthModule.cpp",
+    "nsCidProtocolHandler.cpp",
+    "nsImapMoveCoalescer.cpp",
+    "nsMailAuthModule.cpp",
+    "nsMailChannel.cpp",
+    "nsMailDirProvider.cpp",
+    "nsMessenger.cpp",
+    "nsMessengerBootstrap.cpp",
+    "nsMsgAccount.cpp",
+    "nsMsgAccountManager.cpp",
+    "nsMsgBiffManager.cpp",
+    "nsMsgCompressIStream.cpp",
+    "nsMsgCompressOStream.cpp",
+    "nsMsgContentPolicy.cpp",
+    "nsMsgCopyService.cpp",
+    "nsMsgDBFolder.cpp",
+    "nsMsgDBView.cpp",
+    "nsMsgEnumerator.cpp",
+    "nsMsgFolderCache.cpp",
+    "nsMsgFolderNotificationService.cpp",
+    "nsMsgGroupThread.cpp",
+    "nsMsgGroupView.cpp",
+    "nsMsgI18N.cpp",
+    "nsMsgIdentity.cpp",
+    "nsMsgIncomingServer.cpp",
+    "nsMsgKeySet.cpp",
+    "nsMsgLineBuffer.cpp",
+    "nsMsgMailNewsUrl.cpp",
+    "nsMsgMailSession.cpp",
+    "nsMsgOfflineManager.cpp",
+    "nsMsgProgress.cpp",
+    "nsMsgProtocol.cpp",
+    "nsMsgPurgeService.cpp",
+    "nsMsgQuickSearchDBView.cpp",
+    "nsMsgReadStateTxn.cpp",
+    "nsMsgSearchDBView.cpp",
+    "nsMsgSpecialViews.cpp",
+    "nsMsgStatusFeedback.cpp",
+    "nsMsgTagService.cpp",
+    "nsMsgThreadedDBView.cpp",
+    "nsMsgTxn.cpp",
+    "nsMsgUtils.cpp",
+    "nsMsgWindow.cpp",
+    "nsMsgXFViewThread.cpp",
+    "nsMsgXFVirtualFolderDBView.cpp",
+    "nsNewMailnewsURI.cpp",
+    "nsQuarantinedOutputStream.cpp",
+    "nsSpamSettings.cpp",
+    "nsStopwatch.cpp",
+    "nsSubscribableServer.cpp",
+    "UrlListener.cpp",
+]
+
+if CONFIG["OS_ARCH"] == "WINNT":
+    SOURCES += [
+        "nsMessengerWinIntegration.cpp",
+        # This file cannot be built in unified mode because of name clashes with Windows headers.
+        "nsUserInfoWin.cpp",
+    ]
+elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
+    SOURCES += [
+        "nsUserInfoUnix.cpp",
+    ]
+elif CONFIG["MOZ_WIDGET_TOOLKIT"] == "cocoa":
+    SOURCES += [
+        "nsMessengerOSXIntegration.mm",
+        "nsUserInfoMac.mm",
+    ]
+
+EXTRA_JS_MODULES += [
+    "ABQueryUtils.sys.mjs",
+    "converterWorker.js",
+    "FolderUtils.sys.mjs",
+    "hostnameUtils.sys.mjs",
+    "JXON.sys.mjs",
+    "LineReader.sys.mjs",
+    "MailAuthenticator.sys.mjs",
+    "MailChannel.sys.mjs",
+    "MailCryptoUtils.sys.mjs",
+    "MailNotificationManager.sys.mjs",
+    "MailNotificationService.sys.mjs",
+    "MailServices.sys.mjs",
+    "mailstoreConverter.sys.mjs",
+    "MailStringUtils.sys.mjs",
+    "MboxRepair.sys.mjs",
+    "MboxRepair.worker.mjs",
+    "MorkParser.sys.mjs",
+    "MsgAsyncPrompter.sys.mjs",
+    "MsgDBCacheManager.sys.mjs",
+    "MsgIncomingServer.sys.mjs",
+    "MsgKeySet.sys.mjs",
+    "MsgProtocolInfo.sys.mjs",
+    "OAuth2.sys.mjs",
+    "OAuth2Module.sys.mjs",
+    "OAuth2Providers.sys.mjs",
+    "TemplateUtils.sys.mjs",
+    "VirtualFolderWrapper.sys.mjs",
+    "WinUnreadBadge.sys.mjs",
+]
+
+USE_LIBS += [
+    "jsoncpp",
+]
+
+LOCAL_INCLUDES += [
+    "/dom/base",
+    "/netwerk/base",
+    "/toolkit/components/jsoncpp/include",
+]
+
+include("/ipc/chromium/chromium-config.mozbuild")
+
+FINAL_LIBRARY = "mail"
+
+XPCOM_MANIFESTS += [
+    "components.conf",
+]
+
+# Add libFuzzer configuration directives
+include("/tools/fuzzing/libfuzzer-config.mozbuild")

@@ -1,0 +1,29 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://messenger/skin/shared/popupPanel.css");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+#editContactAddressBookList {
+  margin-inline: 6px;
+  padding-inline-start: 8px;
+
+  &:focus {
+    outline: var(--focus-outline);
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+}
+
+html|input.editContactTextbox {
+  padding: 3px 8px;
+}
+
+#messageHeaderCustomizationPanel {
+  margin-block-start: -6px;
+  margin-inline-end: 6px;
+}

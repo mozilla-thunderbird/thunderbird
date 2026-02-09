@@ -1,0 +1,51 @@
+# vim: set filetype=python:
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+SOURCES += [
+    "MorkImport.cpp",
+    "nsAddrDatabase.cpp",
+    "nsImportABDescriptor.cpp",
+    "nsImportAddressBooks.cpp",
+    "nsImportEmbeddedImageData.cpp",
+    "nsImportMail.cpp",
+    "nsImportMailboxDescriptor.cpp",
+    "nsImportService.cpp",
+    "nsImportStringBundle.cpp",
+]
+
+if not CONFIG["MOZ_SUITE"]:
+    XPCOM_MANIFESTS += [
+        "components.conf",
+    ]
+
+if CONFIG["MOZ_WIDGET_TOOLKIT"] == "cocoa":
+    SOURCES += [
+        "nsAppleMailImport.cpp",
+        "nsEmlxHelperUtils.mm",
+    ]
+
+if CONFIG["OS_ARCH"] == "WINNT":
+    if CONFIG["MOZ_MAPI_SUPPORT"]:
+        SOURCES += [
+            "MapiApi.cpp",
+            "MapiMessage.cpp",
+            "MapiMimeTypes.cpp",
+            "nsOutlookCompose.cpp",
+            "nsOutlookImport.cpp",
+            "nsOutlookMail.cpp",
+            "nsOutlookSettings.cpp",
+            "nsOutlookStringBundle.cpp",
+            "rtfDecoder.cpp",
+            "rtfMailDecoder.cpp",
+        ]
+
+        SOURCES["rtfDecoder.cpp"].flags += ["-Wno-switch"]
+        LOCAL_INCLUDES += ["/comm/mailnews/mapi/include"]
+
+EXPORTS += [
+    "ImportDebug.h",
+]
+
+FINAL_LIBRARY = "mail"

@@ -1,0 +1,43 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+EXPORTS += [
+    "EwsFetchMsgsToOffline.h",
+]
+
+SOURCES += [
+    "EwsCopyMoveTransaction.cpp",
+    "EwsFetchMsgsToOffline.cpp",
+    "EwsFolder.cpp",
+    "EwsFolderCopyHandler.cpp",
+    "EwsIncomingServer.cpp",
+    "EwsLanguageInteropFactory.cpp",
+    "EwsListeners.cpp",
+    "EwsMessageChannel.cpp",
+    "EwsMessageCopyHandler.cpp",
+    "EwsMessageSync.cpp",
+    "EwsOAuth2CustomDetails.cpp",
+    "EwsProtocolHandler.cpp",
+    "EwsProtocolInfo.cpp",
+    "EwsService.cpp",
+]
+
+XPCOM_MANIFESTS += [
+    "components.conf",
+]
+
+# Usually IDL files would live in a separate "public" directory. However, in
+# this case, IDL files don't describe APIs that we would like to be public for
+# other components to interact with, but that we have to expose in order to
+# interact with Rust.
+XPIDL_MODULE = "msgews"
+
+XPIDL_SOURCES += [
+    "IEwsClient.idl",
+    "IEwsFolder.idl",
+    "IEwsIncomingServer.idl",
+    "IEwsLanguageInteropFactory.idl",
+]
+
+FINAL_LIBRARY = "mail"

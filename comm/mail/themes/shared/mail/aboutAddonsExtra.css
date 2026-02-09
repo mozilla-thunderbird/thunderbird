@@ -1,0 +1,175 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://messenger/skin/icons.css");
+@import url("chrome://messenger/skin/colors.css");
+
+body {
+  /* Override the absolute (px) font-size value in common-shared.css. */
+  font-size: 1.1rem;
+}
+
+#full {
+  grid-template-columns: 18em 1fr;
+}
+
+#sidebar {
+  background-color: var(--in-content-categories-background);
+
+  & > #categories {
+    inline-size: inherit;
+    padding-inline-end: 0;
+
+    & > .category {
+      border-radius: var(--button-border-radius);
+      -moz-context-properties: fill, fill-opacity, stroke;
+      fill: color-mix(in srgb, currentColor 20%, transparent);
+      stroke: currentColor;
+
+      &[name="discover"] {
+        background-image: var(--addons-manager-recommendations);
+      }
+
+      &[name="extension"] {
+        background-image: var(--addons-manager-extensions);
+      }
+
+      &[name="theme"] {
+        background-image: var(--addons-manager-themes);
+      }
+
+      &[name="dictionary"] {
+        background-image: var(--addons-manager-dictionaries);
+      }
+
+      &[name="locale"] {
+        background-image: var(--addons-manager-languages);
+      }
+
+      &[name="sitepermission"] {
+        background-image: var(--addons-manager-site-permissions);
+      }
+
+      &[name="available-updates"] {
+        background-image: var(--addons-manager-available-updates);
+      }
+
+      &[name="recent-updates"] {
+        background-image: var(--addons-manager-recent-updates);
+      }
+    }
+  }
+}
+
+/* Hide Plugins category */
+button[name="plugin"] {
+  display: none;
+}
+
+.sidebar-footer-list > li {
+  margin-inline: 6px;
+  border-radius: var(--button-border-radius);
+}
+
+@media (max-width: 830px) {
+  #full {
+    grid-template-columns: 60px 1fr;
+  }
+
+  #categories > .category {
+    padding-inline: 12px;
+  }
+
+  .sidebar-footer-list > li > a {
+    margin-inline: auto;
+  }
+}
+
+/* Temporary styles for the supernova icons */
+#preferencesButton .sidebar-footer-icon,
+.page-options-menu > .more-options-button {
+  -moz-context-properties: fill, stroke, stroke-opacity;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+}
+
+/* Settings icon override */
+#preferencesButton .sidebar-footer-icon {
+  content: var(--icon-settings);
+}
+
+.page-options-menu > .more-options-button {
+  background-image: url("chrome://messenger/skin/icons/new/touch/settings.svg");
+  inline-size: 24px;
+  block-size: 24px;
+}
+
+.more-options-button {
+  -moz-context-properties: stroke;
+  stroke: currentColor;
+  background-image: var(--icon-more);
+}
+
+/* Hide in extension details the private browsing section */
+section > .addon-detail-row-private-browsing,
+.addon-detail-row-private-browsing + .addon-detail-row.addon-detail-help-row {
+  display: none;
+}
+
+/* Hide the options entry in the options menu, as we have a dedicated button */
+addon-options panel-item[action="preferences"] {
+  display: none;
+}
+
+.extension-options-button {
+  min-inline-size: auto;
+  min-block-size: auto;
+  inline-size: 24px;
+  block-size: 24px;
+  margin: 0;
+  margin-inline-start: 8px;
+  -moz-context-properties: fill;
+  fill: currentColor;
+  background-image: url("chrome://messenger/skin/icons/developer.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* Get the -badged ::after element in the right spot. */
+  padding: 1px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+recommended-addon-card .addon.card:hover {
+  box-shadow: var(--card-shadow-hover);
+  cursor: pointer;
+}
+
+panel-item {
+  -moz-context-properties: fill, stroke;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+
+  &[action="remove"] {
+    --icon: var(--icon-trash);
+  }
+}
+
+/* Override the absolute (px) font-size values in aboutaddons.css. */
+
+.addon-name,
+.disco-addon-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.theme-enable-button,
+.addon-description,
+.disco-addon-author,
+.disco-cta-button {
+  font-size: 1.1rem;
+}
+
+button.tab-button {
+  font-size: 1.1rem;
+}

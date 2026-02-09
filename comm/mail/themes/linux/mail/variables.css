@@ -1,0 +1,24 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://messenger/skin/shared/variables.css");
+
+:root {
+  --row-grouped-header-bg-color: -moz-dialog;
+  --row-grouped-header-bg-color-selected: var(--selected-item-color);
+  --autocomplete-popup-url-color: LinkText;
+
+  /* Used for Breeze titlebar-button buttons */
+  --toolbox-bgcolor: -moz-headerbar;
+  --toolbox-textcolor: -moz-headerbartext;
+  --toolbox-bgcolor-inactive: -moz-headerbarinactive;
+  --toolbox-textcolor-inactive: -moz-headerbarinactivetext;
+
+  &[lwtheme] {
+    --toolbox-bgcolor: var(--lwt-accent-color);
+    --toolbox-bgcolor-inactive: var(--lwt-accent-color-inactive, var(--lwt-accent-color));
+    --toolbox-textcolor: var(--lwt-text-color, currentColor);
+    --toolbox-textcolor-inactive: var(--lwt-text-color, currentColor);
+  }
+}

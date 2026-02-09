@@ -1,0 +1,512 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://messenger/skin/messenger.css");
+@import url("chrome://messenger/skin/icons.css");
+
+html {
+  block-size: 100%;
+}
+
+:root {
+  --bg-color: light-dark(#fff, #2f2f33);
+  --bg-watermark: url("chrome://messenger/skin/images/account-watermark.png");
+  --header-bg-color: light-dark(rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.05));
+  --accounts-bg-color: light-dark(rgba(0, 0, 0, 0.03), rgba(255, 255, 255, 0.03));
+  --text-color: light-dark(#36385a, #f9f9fa);
+  --title-color: light-dark(#002275, #fefefe);
+  --primary-color: light-dark(#0a84ff, #0a84ff);
+  --primary-color-hover: light-dark(#0060df, #0a84ff);
+  --btn-color: light-dark(#36385a, #fff);
+  --btn-color-hover: #fff;
+  --btn-bg: light-dark(#fff, #38383d);
+  --btn-bg-hover: #0060df;
+  --btn-shadow-hover: light-dark(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+  --popup-bg: light-dark(#ededf0, #474749);
+
+  @media (prefers-color-scheme: dark) {
+    --bg-watermark: url("chrome://messenger/skin/images/account-watermark-light.png");
+  }
+
+  @media (prefers-contrast) {
+    --bg-color: Window;
+    --text-color: WindowText;
+    --title-color: -moz-DialogText;
+    --primary-color: SelectedItem;
+    --primary-color-hover: SelectedItem;
+    --btn-color: -moz-DialogText;
+    --btn-color-hover: SelectedItemText;
+    --btn-bg: Dialog;
+    --btn-bg-hover: SelectedItem;
+    --btn-shadow-hover: transparent;
+    --popup-bg: Window;
+
+    & .btn-hub {
+      border: 1px solid -moz-DialogText;
+    }
+  }
+}
+
+[hidden] {
+  display: none !important; /* Ensure flex items obey hidden="hidden". */
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-outline-color);
+}
+
+body {
+  /* Overwrite rules in messenger.css. */
+  display: block;
+  overflow: auto;
+  margin: 0;
+  block-size: 100vh;
+  background-color: var(--body-background-color);
+  text-shadow: none;
+}
+
+#accountCentral {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  background-image: var(--bg-watermark);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  color: var(--text-color);
+  block-size: 100%;
+}
+
+#brandLogo {
+  inline-size: 64px;
+  block-size: 64px;
+  margin-inline-end: 20px;
+  flex-shrink: 0;
+}
+
+.account-central-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--header-bg-color);
+  padding: 20px 30px;
+
+  &.summary-header {
+    padding-block: 16px;
+  }
+
+  & > aside {
+    display: flex;
+    align-items: center;
+    inline-size: 160px;
+    flex: 1 1 auto;
+  }
+}
+
+#accountLogo {
+  -moz-context-properties: fill, stroke, stroke-opacity;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+  color: var(--primary-color);
+  inline-size: 20px;
+  block-size: 20px;
+  margin-inline-end: 10px;
+  flex-shrink: 0;
+  background: var(--account-central-mail) center no-repeat;
+  background-size: contain;
+  display: block;
+
+  &[type="none"] {
+    background-image: var(--account-central-folder);
+  }
+
+  &[type="rss"] {
+    background-image: var(--account-central-rss);
+  }
+
+  &[type="nntp"] {
+    background-image: var(--account-central-globe);
+    margin-block-start: 3px;
+  }
+}
+
+#accountName {
+  font-size: 1.2em;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-block: 0;
+  /* Prevents UI jumping when dynamically changing the content. */
+  min-block-size: 21px;
+}
+
+aside.settings-btn-container {
+  justify-content: end;
+}
+
+.account-central-title {
+  font-size: x-large;
+  margin-inline-end: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-block: 0;
+}
+
+.account-central-version {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: small;
+  margin-block-start: 10px;
+  line-height: 1em;
+
+  & > label {
+    margin-inline: 0 1px;
+  }
+}
+
+#releasenotes {
+  cursor: pointer;
+
+  & img {
+    color: var(--primary-color);
+    -moz-context-properties: fill, stroke, stroke-opacity;
+    fill: color-mix(in srgb, currentColor 20%, transparent);
+    stroke: currentColor;
+    fill-opacity: 1;
+    inline-size: 16px;
+    block-size: 16px;
+    margin-inline-start: 3px;
+
+    &:where(:hover, :focus) {
+      color: var(--primary-color-hover);
+    }
+  }
+}
+
+.account-central-section {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px;
+  position: relative;
+
+  &.setup-section {
+    padding-block-end: 30px;
+  }
+
+  &.zebra {
+    background-color: var(--accounts-bg-color);
+  }
+}
+
+#accountFeaturesSection {
+  margin-block-start: 20px;
+}
+
+.section-title {
+  font-size: larger;
+  font-weight: 600;
+  color: var(--title-color);
+  margin-block: 10px 20px;
+  /* Prevents UI jumping when dynamically changing the content. */
+  min-block-size: 21px;
+}
+
+.row-container {
+  margin-inline: -10px;
+  display: flex;
+  flex-wrap: wrap;
+
+  & > p {
+    flex: 1;
+    display: block;
+    min-inline-size: 300px;
+    max-inline-size: 550px;
+    margin: 0 10px 20px;
+  }
+
+  &.account-options > .btn-link {
+    margin-inline: 5px 15px;
+    padding-inline: 5px;
+  }
+}
+
+/* Custom buttons style */
+.btn-hub {
+  transition:
+    background-color 280ms ease,
+    color 280ms ease,
+    box-shadow 280ms ease;
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  color: var(--btn-color);
+  background-color: var(--btn-bg);
+  -moz-context-properties: fill, stroke, stroke-opacity;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+  min-inline-size: 110px;
+  block-size: 90px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin-inline: 10px;
+  margin-block-end: 10px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px -5px var(--btn-shadow-hover);
+
+  &:not([disabled]):hover {
+    color: var(--btn-color-hover) !important;
+    background-color: var(--btn-bg-hover);
+    box-shadow:
+      0 14px 16px -12px var(--btn-shadow-hover),
+      inset 20px 20px 50px -30px rgba(255, 255, 255, 0.35);
+  }
+
+  &.btn-inline {
+    flex-direction: row;
+    inline-size: auto;
+    block-size: auto;
+    padding: 8px 12px;
+    justify-content: flex-start;
+    min-inline-size: 140px;
+  }
+
+  &:focus-visible:not(:hover) {
+    color: var(--primary-color) !important;
+  }
+
+  &::before {
+    position: relative;
+    display: block;
+    content: "";
+    margin-block-end: 10px;
+    margin-inline-end: 0;
+    inline-size: 20px;
+    block-size: 20px;
+    color: var(--primary-color);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: color 280ms ease;
+  }
+
+  &.btn-inline::before {
+    margin-block-end: 0;
+    margin-inline-end: 10px;
+    inline-size: 16px;
+    block-size: 16px;
+  }
+
+  &:hover::before {
+    color: var(--btn-color-hover) !important;
+  }
+}
+
+#setupEmail::before {
+  background-image: var(--account-central-mail);
+}
+
+#setupCalendar::before {
+  background-image: var(--account-central-calendar);
+}
+
+#setupAddressBook::before {
+  background-image: var(--account-central-address-book);
+}
+
+#setupChat::before {
+  background-image: var(--account-central-chat);
+}
+
+#setupFilelink::before {
+  background-image: var(--account-central-link);
+}
+
+#setupFeeds::before,
+#rssSubscriptionButton::before {
+  background-image: var(--account-central-rss);
+}
+
+#nntpSubscriptionButton::before {
+  background-image: var(--account-central-globe);
+}
+
+#setupNewsgroups::before {
+  background-image: var(--account-central-newsletter);
+}
+
+#importButton::before {
+  background-image: var(--icon-import);
+}
+
+#setupEmail.btn-inline::before {
+  background-image: var(--icon-mail);
+}
+
+#setupCalendar.btn-inline::before {
+  background-image: var(--icon-calendar);
+}
+
+#setupAddressBook.btn-inline::before {
+  background-image: var(--icon-address-book);
+}
+
+#setupChat.btn-inline::before {
+  background-image: var(--icon-chat);
+}
+
+#setupFilelink.btn-inline::before {
+  background-image: var(--icon-link);
+}
+
+#setupFeeds.btn-inline::before,
+#rssSubscriptionButton.btn-inline::before {
+  background-image: var(--icon-rss);
+}
+
+#nntpSubscriptionButton.btn-inline::before {
+  background-image: var(--icon-newsletter);
+}
+
+#setupNewsgroups.btn-inline::before {
+  background-image: var(--icon-newsletter);
+}
+
+.account-description {
+  position: absolute;
+  opacity: 0;
+  inset-block-start: 100%;
+  margin-block-start: -30px;
+  inline-size: 90vw;
+  inset-inline-start: 30px;
+  transition: opacity 280ms ease;
+  z-index: 1;
+
+  & > p {
+    display: inline-block;
+    background-color: var(--popup-bg);
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px -4px rgba(0, 0, 0, 0.8);
+  }
+
+  .btn-hub:hover + & {
+    opacity: 1;
+  }
+}
+
+/* Custom link style */
+.donation-link {
+  color: var(--primary-color);
+  font-style: italic;
+  font-weight: 600;
+  transition: color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--primary-color-hover);
+  }
+
+  &:focus-visible:not(:hover) {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+}
+
+.btn-link {
+  appearance: none;
+  display: flex;
+  background-color: transparent;
+  -moz-context-properties: fill, stroke, stroke-opacity;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1em;
+  align-items: center;
+  transition: color 0.2s;
+
+  &.btn-inline {
+    margin-block-end: 20px;
+  }
+}
+
+.resource-link {
+  color: var(--text-color);
+  -moz-context-properties: fill, stroke, stroke-opacity;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+  margin-block-end: 10px;
+  margin-inline: 10px 30px;
+  transition: color 0.2s;
+  cursor: pointer;
+
+  &:focus-visible:not(:hover) {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
+  }
+}
+
+.btn-link::before,
+.resource-link::before {
+  position: relative;
+  display: inline-block;
+  content: "";
+  background-repeat: no-repeat;
+  inline-size: 16px;
+  block-size: 16px;
+  margin-inline-end: 5px;
+  vertical-align: sub;
+}
+
+.btn-link:hover,
+.resource-link:hover {
+  color: var(--primary-color-hover) !important;
+  background-color: transparent;
+}
+
+#supportLink::before {
+  background-image: var(--icon-question);
+}
+
+#involvedLink::before {
+  background-image: var(--icon-handshake);
+}
+
+#developerLink::before {
+  background-image: var(--icon-tools);
+}
+
+#settingsButton {
+  padding-inline: 3px;
+}
+
+#settingsButton::before {
+  background-image: var(--icon-account-settings);
+}
+
+#readButton::before {
+  background-image: var(--icon-inbox);
+}
+
+#composeButton::before {
+  background-image: var(--icon-pencil);
+}
+
+#searchButton::before {
+  background-image: var(--icon-search);
+}
+
+#filterButton::before {
+  background-image: var(--icon-filter);
+}
+
+#e2eButton::before {
+  background-image: var(--icon-key);
+}

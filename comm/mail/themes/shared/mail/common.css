@@ -1,0 +1,191 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@import url("chrome://global/skin/in-content/common-shared.css");
+@import url("chrome://messenger/skin/layout.css");
+
+:host,
+:root {
+  --button-height: 2.2em;
+  --border-color: color-mix(in srgb, currentColor 46%, transparent);
+  --button-border-radius: 3px;
+  --button-border-color: color-mix(in srgb, currentColor 9%, transparent);
+  --button-border-color-hover: color-mix(in srgb, currentColor 17%, transparent);
+  --in-content-deemphasized-text: color-mix(in srgb, currentColor 60%, transparent);
+  --size-sidebar: auto;
+  --menu-item-margin: 0 3px;
+
+  @media not (forced-colors) {
+    --background-color-box-info: light-dark(var(--layout-background-1), var(--layout-background-2));
+    --in-content-box-info-border: light-dark(var(--layout-border-0), transparent);
+    --button-background-color: light-dark(var(--grey-90-a10), rgba(249, 249, 250, 0.1));
+    --button-background-color-hover: light-dark(var(--grey-90-a20), rgba(249, 249, 250, 0.15));
+    --button-background-color-active: light-dark(var(--grey-90-a30), rgba(249, 249, 250, 0.2));
+    --in-content-categories-background: var(--layout-background-2);
+    --in-content-categories-border: var(--in-content-categories-background);
+    --color-accent-primary-selected-unfocused: light-dark(var(--color-gray-20), rgba(249, 249, 250, 0.05));
+    --in-content-item-hover: color-mix(in srgb, currentColor 12%, transparent);
+    --color-accent-primary-selected: color-mix(in srgb, currentColor 20%, transparent);
+    --text-color-accent-primary-selected: var(--text-color);
+    --button-background-color-primary: AccentColor;
+    --button-background-color-primary-hover: color-mix(in srgb, AccentColor 80%, black);
+    --button-background-color-primary-active: color-mix(in srgb, AccentColor 70%, black);
+    --button-text-color-primary: AccentColorText;
+    --in-content-focus-outline-color: AccentColor;
+    --in-content-accent-color: AccentColor;
+    --focus-outline-color: AccentColor;
+  }
+
+  @media (forced-colors) {
+    --background-color-box-info: transparent;
+    --in-content-box-info-border: currentColor;
+    --in-content-categories-background: transparent;
+    --in-content-categories-border: currentColor;
+    --border-color: -moz-DialogText;
+    --button-background-color-primary: SelectedItem;
+    --button-background-color-primary-hover: SelectedItem;
+    --button-background-color-primary-active: SelectedItem;
+    --button-text-color-primary: SelectedItemText;
+    --button-text-color-primary-active: SelectedItemText;
+    --in-content-accent-color: SelectedItem;
+  }
+}
+
+:root {
+  -moz-box-collapse: legacy;
+
+  &:not(.system-font-size) {
+    font: message-box;
+  }
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+body table {
+  font-size: 1em;
+}
+
+#categories {
+  & > .category {
+    margin-inline: 6px;
+    border-color: transparent !important;
+
+    &[selected] {
+      font-weight: 500;
+    }
+  }
+
+  @media not (forced-colors) {
+    & > .category[selected] {
+      background-color: var(--button-background-color) !important;
+      color: unset;
+    }
+
+    &[keyboard-navigation="true"]:focus-visible > .category[current],
+    & > .category:focus-visible {
+      background-color: var(--color-accent-primary-selected) !important;
+      color: var(--text-color-accent-primary-selected);
+      outline: none;
+    }
+  }
+}
+
+.category-name {
+  font-size: 1.1rem;
+}
+
+.sidebar-footer-list {
+  margin-inline: 0;
+}
+
+.sidebar-footer-link {
+  border-color: transparent !important;
+}
+
+.sidebar-footer-icon {
+  margin: 10px;
+}
+
+.sidebar-footer-label {
+  margin: 0;
+}
+
+menulist > menupopup {
+  --panel-padding: 3px 0;
+
+  & menuseparator {
+    margin: 4px 8px;
+  }
+}
+
+menupopup {
+  @media not (-moz-windows-mica-popups) {
+    --panel-border-color: var(--border-color);
+    --panel-background: var(--background-color-box);
+    --panel-color: var(--text-color);
+  }
+
+  &::part(content) {
+    border-radius: var(--arrowpanel-border-radius);
+  }
+
+  & > :is(menu, menuitem) {
+    margin: var(--menu-item-margin);
+    min-block-size: 24px;
+    padding-block: var(--menu-item-padding);
+    border-radius: 3px;
+  }
+
+  @media (-moz-windows-mica-popups) {
+    & menupopup {
+      --panel-border-color: var(--border-color);
+    }
+  }
+}
+
+tab[selected] {
+  color: var(--button-text-color);
+  background-color: var(--button-background-color);
+  border-block-end-color: var(--in-content-accent-color);
+}
+
+input[type="search"] {
+  padding-inline: 30px 6px;
+  background-image: var(--icon-search);
+  -moz-context-properties: fill, stroke;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+  background-position: 8px center;
+  background-repeat: no-repeat;
+
+  &:-moz-locale-dir(rtl) {
+    background-position: calc(100% - 8px);
+  }
+}
+
+input::-moz-search-clear-button {
+  inline-size: 28px;
+  block-size: 28px;
+  margin-block: auto;
+  padding: 0;
+  background-image: var(--icon-close);
+  background-size: 16px;
+  -moz-context-properties: fill, stroke;
+  fill: color-mix(in srgb, currentColor 20%, transparent);
+  stroke: currentColor;
+}
+
+:host(dialog[subdialog]) .dialog-button-box > button {
+  min-block-size: var(--button-height);
+  padding-block: initial;
+  padding-inline: 15px;
+  border-color: transparent;
+  border-radius: var(--button-border-radius);
+}

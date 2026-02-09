@@ -1,0 +1,53 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+html|input {
+  &.plain {
+    background-color: transparent;
+  }
+
+  &.input-filefield {
+    padding-inline-start: 20px !important;
+  }
+
+  &.input-inline-color {
+    margin: 2px 4px;
+  }
+
+  &[type="number"] {
+    &.input-number-inline {
+      flex: 1 !important;
+      padding: 2px 2px 3px;
+      margin-inline-start: 2px;
+    }
+
+    &::-moz-number-spin-box {
+      padding-inline-start: 4px;
+    }
+  }
+}
+
+html|textarea.no-resize {
+  resize: none;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  &.items-stretch {
+    align-items: stretch;
+  }
+
+  &.wrap-container {
+    flex-wrap: wrap;
+  }
+
+  & :is(html|input:not([type="number"], [type="color"]), .label-inline, .spacer-inline) {
+    flex: 1;
+  }
+}

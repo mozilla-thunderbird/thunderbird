@@ -1,0 +1,50 @@
+<defines>
+UTIL_FUNCTIONS -> 20180903
+</defines>
+
+<module_info>
+name -> "Utilities"
+brief -> "Various utility functions and types"
+</module_info>
+
+load_on always
+
+<header:public>
+api.h
+assert.h
+allocator.h
+compiler.h
+concepts.h
+data_src.h
+database.h
+exceptn.h
+mem_ops.h
+mutex.h
+types.h
+strong_type.h
+version.h
+</header:public>
+
+<header:internal>
+alignment_buffer.h
+bit_ops.h
+bswap.h
+calendar.h
+charset.h
+codec_base.h
+ct_utils.h
+donna128.h
+filesystem.h
+fmt.h
+isa_extn.h
+int_utils.h
+loadstor.h
+mul128.h
+parsing.h
+prefetch.h
+rotate.h
+rounding.h
+scan_name.h
+stl_util.h
+time_utils.h
+</header:internal>
