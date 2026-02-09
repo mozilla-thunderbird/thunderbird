@@ -33,6 +33,7 @@ async function setupStatusCardTest(
       status: 200,
       error: undefined,
       pass: makePass(),
+      usage: makeUsage(),
     },
   });
   await IPPEnrollAndEntitleManager.refetchEntitlement();

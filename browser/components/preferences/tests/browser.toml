@@ -342,7 +342,7 @@ skip-if = [
 
 ["browser_search_within_preferences_1.js"]
 skip-if = [
-  "os == 'win' && os_version == '11.26100' && arch == 'x86_64' && ccov",
+  "os == 'win'", # Bug 1787026
 ]
 
 ["browser_search_within_preferences_2.js"]

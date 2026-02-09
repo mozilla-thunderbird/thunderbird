@@ -7,6 +7,8 @@ import { MozLitElement } from "chrome://global/content/lit-utils.mjs";
 // eslint-disable-next-line import/no-unassigned-import
 import "chrome://browser/content/aiwindow/components/assistant-message-footer.mjs";
 // eslint-disable-next-line import/no-unassigned-import
+import "chrome://browser/content/aiwindow/components/chat-assistant-error.mjs";
+// eslint-disable-next-line import/no-unassigned-import
 import "chrome://browser/content/aiwindow/components/chat-assistant-loader.mjs";
 
 /**
@@ -14,17 +16,23 @@ import "chrome://browser/content/aiwindow/components/chat-assistant-loader.mjs";
  */
 export class AIChatContent extends MozLitElement {
   static properties = {
-    conversationState: { type: Array },
-    tokens: { type: Object },
-    isSearching: { type: Boolean },
     assistantIsLoading: { type: Boolean },
+    conversationState: { type: Array },
+    errorStatus: { type: String },
+    isSearching: { type: Boolean },
+    searchQuery: { type: String },
+    showErrorMessage: { type: Boolean },
+    tokens: { type: Object },
   };
 
   constructor() {
     super();
-    this.conversationState = [];
-    this.isSearching = false;
     this.assistantIsLoading = false;
+    this.conversationState = [];
+    this.errorStatus = null;
+    this.isSearching = false;
+    this.searchQuery = null;
+    this.showErrorMessage = false;
   }
 
   connectedCallback() {
@@ -111,6 +119,14 @@ export class AIChatContent extends MozLitElement {
   messageEvent(event) {
     const message = event.detail;
 
+    if (message?.content?.isError) {
+      this.handleErrorEvent(message?.content?.status);
+      return;
+    }
+
+    this.showErrorMessage = false;
+    this.#checkConversationState(message);
+
     switch (message.role) {
       case "loading":
         this.handleLoadingEvent(event);
@@ -123,6 +139,9 @@ export class AIChatContent extends MozLitElement {
         this.#checkConversationState(message);
         this.handleUserPromptEvent(event);
         break;
+      // Used to clear the conversation state via side effects ( new conv id )
+      case "clear-conversation":
+        this.#checkConversationState(message);
     }
   }
 
@@ -152,6 +171,12 @@ export class AIChatContent extends MozLitElement {
     this.assistantIsLoading = true;
     this.requestUpdate();
     this.#scrollToBottom();
+  }
+
+  handleErrorEvent(errorStatus) {
+    this.errorStatus = errorStatus;
+    this.showErrorMessage = true;
+    this.requestUpdate();
   }
 
   /**
@@ -284,6 +309,11 @@ export class AIChatContent extends MozLitElement {
           ? html`<chat-assistant-loader
               .isSearch=${this.isSearching}
             ></chat-assistant-loader>`
+          : nothing}
+        ${this.showErrorMessage
+          ? html`<chat-assistant-error
+              .errorStatus=${this.errorStatus}
+            ></chat-assistant-error>`
           : nothing}
       </div>
     `;

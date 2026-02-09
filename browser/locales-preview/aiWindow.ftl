@@ -22,6 +22,8 @@ menu-history-chats =
 menu-history-chats-recent =
     .label = Recent Chats
 
+smartwindow-document-title = New Tab
+
 ## Smart Window Toggle Button
 
 toolbar-button-ai-window-toggle =

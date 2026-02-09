@@ -282,6 +282,12 @@ bool Gecko_IsRootElement(const Element* aElement) {
   return aElement->OwnerDoc()->GetRootElement() == aElement;
 }
 
+void Gecko_GetCachedLazyPseudoStyles(const ComputedStyle* aStyle,
+                                     nsTArray<const ComputedStyle*>* aArray) {
+  MOZ_ASSERT(aStyle);
+  aStyle->GetCachedLazyPseudoStyles(*aArray);
+}
+
 void Gecko_NoteDirtyElement(const Element* aElement) {
   MOZ_ASSERT(NS_IsMainThread());
   const_cast<Element*>(aElement)->NoteDirtyForServo();

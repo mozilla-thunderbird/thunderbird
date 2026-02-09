@@ -128,8 +128,6 @@ class SVGSVGElement final : public SVGSVGElementBase {
 
   nsresult BindToTree(BindContext&, nsINode& aParent) override;
   void UnbindFromTree(UnbindContext&) override;
-  SVGAnimatedTransformList* GetExistingAnimatedTransformList() const override;
-  SVGAnimatedTransformList* GetOrCreateAnimatedTransformList() override;
 
   // SVGSVGElement methods:
 
@@ -138,6 +136,8 @@ class SVGSVGElement final : public SVGSVGElementBase {
   bool IsOverriddenBy(const nsAString& aViewID) const {
     return !mCurrentViewID.IsVoid() && mCurrentViewID.Equals(aViewID);
   }
+
+  SVGAnimatedTransformList* GetViewTransformList() const;
 
   SMILTimeContainer* GetTimedDocumentRoot();
 

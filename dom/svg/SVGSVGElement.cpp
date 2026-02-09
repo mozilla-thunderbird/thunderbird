@@ -122,6 +122,13 @@ bool SVGSVGElement::UseCurrentView() const {
   return mSVGView || !mCurrentViewID.IsVoid();
 }
 
+SVGAnimatedTransformList* SVGSVGElement::GetViewTransformList() const {
+  if (mSVGView && mSVGView->mTransforms) {
+    return mSVGView->mTransforms.get();
+  }
+  return nullptr;
+}
+
 float SVGSVGElement::CurrentScale() const { return mCurrentScale; }
 
 #define CURRENT_SCALE_MAX 16.0f
@@ -360,21 +367,6 @@ void SVGSVGElement::UnbindFromTree(UnbindContext& aContext) {
   }
 
   SVGGraphicsElement::UnbindFromTree(aContext);
-}
-
-SVGAnimatedTransformList* SVGSVGElement::GetExistingAnimatedTransformList()
-    const {
-  if (mSVGView && mSVGView->mTransforms) {
-    return mSVGView->mTransforms.get();
-  }
-  return SVGGraphicsElement::GetExistingAnimatedTransformList();
-}
-
-SVGAnimatedTransformList* SVGSVGElement::GetOrCreateAnimatedTransformList() {
-  if (mSVGView && mSVGView->mTransforms) {
-    return mSVGView->mTransforms.get();
-  }
-  return SVGGraphicsElement::GetOrCreateAnimatedTransformList();
 }
 
 void SVGSVGElement::GetEventTargetParent(EventChainPreVisitor& aVisitor) {

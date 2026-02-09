@@ -112,14 +112,9 @@ class AdjustMetricsService(
     override fun track(event: Event) {
         CoroutineScope(dispatcher).launch {
             try {
-                val tokenName = when (event) {
-                    is Event.GrowthData -> event.tokenName
-                    is Event.FirstWeekPostInstall -> event.tokenName
-                }
-
-                if (event is Event.GrowthData || event is Event.FirstWeekPostInstall) {
+                if (event is Event.GrowthData) {
                     if (storage.shouldTrack(event)) {
-                        Adjust.trackEvent(AdjustEvent(tokenName))
+                        Adjust.trackEvent(AdjustEvent(event.tokenName))
                         storage.updateSentState(event)
                     } else {
                         storage.updatePersistentState(event)
@@ -132,7 +127,7 @@ class AdjustMetricsService(
     }
 
     override fun shouldTrack(event: Event): Boolean =
-        event is Event.GrowthData || event is Event.FirstWeekPostInstall
+        event is Event.GrowthData
 
     companion object {
         @VisibleForTesting

@@ -144,6 +144,11 @@ void Gecko_LoadStyleSheetAsync(
 uint64_t Gecko_ElementState(const mozilla::dom::Element*);
 bool Gecko_IsRootElement(const mozilla::dom::Element*);
 
+// Fills aArray with the cached lazy pseudo styles from aStyle.
+void Gecko_GetCachedLazyPseudoStyles(
+    const mozilla::ComputedStyle* aStyle,
+    nsTArray<const mozilla::ComputedStyle*>* aArray);
+
 bool Gecko_MatchLang(const mozilla::dom::Element*, nsAtom* override_lang,
                      bool has_override_lang, const char16_t* value);
 

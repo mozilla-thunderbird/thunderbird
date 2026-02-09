@@ -15,6 +15,8 @@
     "about:welcome": "chrome://branding/content/icon32.png",
     "about:privatebrowsing":
       "chrome://browser/skin/privatebrowsing/favicon.svg",
+    "chrome://browser/content/aiwindow/aiWindow.html":
+      "chrome://global/skin/icons/highlights.svg",
   };
 
   const {
@@ -9141,10 +9143,10 @@
           modifiedAttrs.push("image");
         } else if (!shouldRemoveFavicon) {
           // Bug 1804166: Allow new tabs to set the favicon correctly if the
-          // new tabs behavior is set to open a blank page
-          // This is a no-op unless this.mBrowser._documentURI is in
+          // new tabs behavior is set to open a blank page.
+          // This is a no-op unless this.mBrowser.documentURI is in
           // FAVICON_DEFAULTS.
-          gBrowser.setDefaultIcon(this.mTab, this.mBrowser._documentURI);
+          gBrowser.setDefaultIcon(this.mTab, this.mBrowser.documentURI);
         }
 
         // For keyword URIs clear the user typed value since they will be changed into real URIs

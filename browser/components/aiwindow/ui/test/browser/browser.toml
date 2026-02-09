@@ -16,6 +16,8 @@ support-files = [
 
 ["browser_aichat_content_actors.js"]
 
+["browser_aichat_content_message_event.js"]
+
 ["browser_aichat_message.js"]
 
 ["browser_aiwindow_account_auth.js"]
